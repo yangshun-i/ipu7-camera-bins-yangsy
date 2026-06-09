@@ -94,6 +94,7 @@ typedef enum
     ia_pal_uuid_isp_linearization2_0 = 10326,
     ia_pal_uuid_isp_lsc_1_2 = 2144,
     ia_pal_uuid_isp_nntm_1_0 = 46539,
+    ia_pal_uuid_isp_nntm_1_2 = 8034,
     ia_pal_uuid_isp_outputscaler_2_0_a = 6800,
     ia_pal_uuid_isp_outputscaler_2_0_b = 51856,
     ia_pal_uuid_isp_pafstatistics_1_2 = 44308,

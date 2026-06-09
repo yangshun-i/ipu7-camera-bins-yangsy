@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2025 Intel Corporation.
+ * Copyright (C) 2019-2026 Intel Corporation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -381,6 +381,27 @@ class LIBEXPORT IntelCCABase {
                         ia_lard_results **pLardResults, int32_t aicId = -1);
 
     /*!
+     * \brief ISP-mode-switch only tuning refresh.
+     *
+     * Like updateTuning() but skips CMC re-parse and AIQ tuning update.
+     * Honors the same tag bitfield as updateTuning() for the remaining
+     * sections: CCA_LARD_ISP gates the AIC tuning refresh, CCA_LARD_OTHER
+     * gates the LTM tuning refresh. CCA_LARD_CMC / CCA_LARD_AIQ bits in
+     * tag are intentionally ignored on this path. Use when only the
+     * per-mode tuning needs to change (e.g. driver-side runtime ISP-mode
+     * switch where CMC and 3A data stay the same).
+     *
+     * \param[in] tag        Mandatory. Bitfield of CCA_LARD_* groups to
+     *                       refresh; CMC/AIQ bits are ignored.
+     * \param[in] lardParams Mandatory. Lard input parameters (must carry
+     *                       the new isp_mode_index).
+     * \param[in] aicId      Optional. Target AIC handle; default -1 picks
+     *                       the first stream id.
+     * \return Error code.
+     */
+    ia_err updateIspTuning(uint8_t tag, ia_lard_input_params &lardParams, int32_t aicId = -1);
+
+    /*!
      * \brief Parse embedded data in run time.
      *
      * \param[in] bin                   Mandatory.\n
@@ -509,6 +530,18 @@ class LIBEXPORT IntelCCABase {
                            const cca_stream_ids &aic_stream_ids) = 0;
     virtual ia_err updateAicTuning(const ia_binary_data *aiqb, const ia_cmc_t *cmc,
                                    int32_t streamId = -1) = 0;
+
+    /*! ISP-mode-switch only AIC tuning refresh. Default implementation
+     *  reuses updateAicTuning with cmc=nullptr (the existing AIC chain
+     *  already short-circuits CMC handling when cmc is null), so derived
+     *  classes that don't have a dedicated path inherit working behavior.
+     *  IPU7's IntelCCA overrides this to call IPU7Aic::updateGAicTuning
+     *  directly for clarity of intent. */
+    virtual ia_err updateAicGAicTuning(const ia_binary_data *aiqb,
+                                       int32_t streamId = -1) {
+        return updateAicTuning(aiqb, nullptr, streamId);
+    }
+
     virtual ia_err getDvsStatsAic(ia_dvs_statistics *stats) = 0;
 
  protected:

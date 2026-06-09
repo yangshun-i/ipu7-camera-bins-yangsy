@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2025 Intel Corporation.
+ * Copyright (C) 2020-2026 Intel Corporation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -266,6 +266,20 @@ public:
      */
     ia_err updateTuning(const ia_binary_data *aiqb, const ia_cmc_t *cmc,
                         int32_t streamId = -1);
+
+    /*!
+     * \brief ISP-mode-switch only: refresh AIC tuning bytes for the given
+     * stream without touching CMC. Forwards to IaAic::updateGAicTuning,
+     * which internally arms mForceStreamConst on every PacEngine so the
+     * next iaPacRun() re-runs the j=0 stream-constant slot for each
+     * kernel and bypasses isChanged inside executeKernel.
+     *
+     * \param[in] aiqb     New tuning binary (already LARD-selected for the
+     *                     desired ISP mode).
+     * \param[in] streamId (Optional) AIC handle stream id. Default -1.
+     * \return Error code.
+     */
+    ia_err updateGAicTuning(const ia_binary_data *aiqb, int32_t streamId = -1);
 
     /*!
      * \brief Get statistics parameters for a specific frame.

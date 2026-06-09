@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Intel Corporation.
+ * Copyright (C) 2025-2026 Intel Corporation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -264,6 +264,12 @@ class LIBEXPORT IntelCCA : public IntelCCABase {
      */
     virtual ia_err updateAicTuning(const ia_binary_data *aiqb, const ia_cmc_t *cmc,
                                    int32_t streamId = -1) override;
+
+    /*! ISP-mode-switch only: forwards to IPU7Aic::updateGAicTuning, which
+     *  refreshes the AIC tuning bytes in-place and marks tuning changed
+     *  without touching CMC. */
+    virtual ia_err updateAicGAicTuning(const ia_binary_data *aiqb,
+                                       int32_t streamId = -1) override;
 
     /*!
      * \brief Get DVS statistics from AIC.

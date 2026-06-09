@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2024 Intel Corporation
+ * Copyright 2012-2026 Intel Corporation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -155,6 +155,7 @@ typedef uint16_t half;
 #define IA_SIN(a)                sinf(CAST_TO_TYPE(float32_t,(a)))
 #define IA_COS(a)                cosf(CAST_TO_TYPE(float32_t,(a)))
 #define IA_ATAN(a)               atanf(CAST_TO_TYPE(float32_t,(a)))
+#define IA_TANH(a)               tanhf(CAST_TO_TYPE(float32_t,(a)))
 #define IA_LN(a)                 logf(CAST_TO_TYPE(float32_t,(a)))
 #define IA_UNUSED(x)             (void)x
 #define IA_LOGD(x)               (log(CAST_TO_TYPE(float64_t,(x))))

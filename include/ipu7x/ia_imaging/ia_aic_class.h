@@ -1,7 +1,7 @@
 /*
  * INTEL CONFIDENTIAL
  *
- * Copyright (C) 2018-2025 Intel Corporation
+ * Copyright (C) 2018-2026 Intel Corporation
  *
  * This software and the related documents are Intel copyrighted materials,
  * and your use of them is governed by the express license under which they
@@ -162,6 +162,12 @@ class LIBEXPORT IaAic
         const ia_binary_data *aiqb_data,
         const ia_cmc_t *ia_cmc_ptr = nullptr);
 
+    /*! ISP-mode-switch only: refresh GAIC tuning bytes in-place via
+     *  IaAicUpdateGAic. Skips CMC re-parse and PAF stats update -
+     *  caller guarantees CMC is unchanged. On success, internally arms
+     *  mForceStreamConst on every PacEngine. */
+    ia_err updateGAicTuning(const ia_binary_data *aiqb_data);
+
     /*! Update resolutions info/history configuration for CB/PG to AIC context
      *
      *
@@ -252,6 +258,13 @@ class LIBEXPORT IaAic
     IaAic &operator=(const IaAic &);
 
     int32_t PgIndex(int32_t group_id) const;
+
+    /*! Forward "ISP tuning bytes were just refreshed" signal to every
+     *  PacEngine in this AIC context. The next iaPacRun() runs the j=0
+     *  stream-constant slot once for each kernel and bypasses
+     *  PacObject::isChanged() inside executeKernel. One-shot per engine.
+     *  Called internally from updateGAicTuning() on success. */
+    void setForceStreamConst();
 
     ia_err IaAicInitPrivate(const ia_binary_data *aiqb_data);
 

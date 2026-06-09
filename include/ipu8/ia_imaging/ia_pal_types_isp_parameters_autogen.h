@@ -192,6 +192,30 @@ typedef struct
 
 } ia_pal_isp_aestatistics_2_1_t;
 
+/*! \isp struct b2b
+
+*/
+typedef struct
+{
+    /*!< cvt_k CVT_K for Bayer to Bayer. Original Value is a float multiplied by 2^22*/
+    int32_t cvt_k;
+    /*!< cvt_b CVT_B for Bayer to Bayer. Original Value is a float multiplied by 2^22*/
+    int32_t cvt_b;
+    /*!< noisy_blend Noisy blend for Bayer to Bayer. Should be divided by 100 before sending to b2b algo to normalize to 0-1 range.*/
+    int32_t noisy_blend;
+    /*!< temporal_strength Temporal strength for Bayer to Bayer. Should be divided by 100 before sending to b2b algo to normalize to 0-1 range.*/
+    int32_t temporal_strength;
+    /*!< left B2B roi left*/
+    int32_t left;
+    /*!< top B2B roi top*/
+    int32_t top;
+    /*!< width B2B roi width*/
+    int32_t width;
+    /*!< height B2B roi height*/
+    int32_t height;
+
+} ia_pal_isp_b2b_t;
+
 /*! \isp struct b2i_ds_1_1
 
 */
@@ -1962,6 +1986,52 @@ typedef struct
 
 } ia_pal_isp_nntm_1_0_t;
 
+/*! \isp struct nntm_1_2
+
+*/
+typedef struct
+{
+    /*!< bypass bypass for the filter*/
+    int32_t bypass;
+    /*!< mode NNTM modes [0,1]*/
+    int32_t mode;
+    /*!< offset_yuv2rgb[3] yuv2rgb offset*/
+    int32_t offset_yuv2rgb[3];
+    /*!< yuv2rgb[9] yuv2rgb calibration*/
+    int32_t yuv2rgb[9];
+    /*!< rgb2yuv[9] rgb2yuv calibration*/
+    int32_t rgb2yuv[9];
+    /*!< input_range_restricted input range is restricted flag*/
+    int32_t input_range_restricted;
+    /*!< output_range_restricted output range is restricted flag*/
+    int32_t output_range_restricted;
+    /*!< blending_map[16384] blending map*/
+    int32_t blending_map[16384];
+    /*!< blending_width blending map width*/
+    int32_t blending_width;
+    /*!< blending_height blending map height*/
+    int32_t blending_height;
+    /*!< guidence_weight_bias[2] guidence conv weight & bias*/
+    int32_t guidence_weight_bias[2];
+    /*!< chroma_save_enable chroma protection  enable*/
+    int32_t chroma_save_enable;
+    /*!< chroma_save_min chroma min range for chroma save*/
+    int32_t chroma_save_min;
+    /*!< chroma_save_max chroma max range for chroma save*/
+    int32_t chroma_save_max;
+    /*!< luma_threshold_min luma min range for chroma save*/
+    int32_t luma_threshold_min;
+    /*!< luma_threshold_max luma max range for chroma save*/
+    int32_t luma_threshold_max;
+    /*!< gtm_a polynomial chromaticity model degree*/
+    int32_t gtm_a;
+    /*!< gtm_b color saturation in highlights*/
+    int32_t gtm_b;
+    /*!< gtm_c overall color desaturation*/
+    int32_t gtm_c;
+
+} ia_pal_isp_nntm_1_2_t;
+
 /*! \isp struct pafstatistics_1_2
 PAF Statistics
 */
@@ -3560,6 +3630,22 @@ typedef struct
     uint32_t stripe_blocks[4];
 
 } ia_pal_system_api_aestatistics_2_1_t;
+
+/*! \system api struct b2b
+
+*/
+typedef struct
+{
+    /*!< height B2B roi height*/
+    int32_t height;
+    /*!< left B2B roi left*/
+    int32_t left;
+    /*!< top B2B roi top*/
+    int32_t top;
+    /*!< width B2B roi width*/
+    int32_t width;
+
+} ia_pal_system_api_b2b_t;
 
 /*! \system api struct b2i_ds_1_1
 

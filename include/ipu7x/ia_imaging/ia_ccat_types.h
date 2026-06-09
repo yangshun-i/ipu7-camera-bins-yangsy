@@ -176,6 +176,7 @@ typedef struct
     ia_aiq_awb_results awb_results;                                          /*!< Optional. */
     ia_aiq_af_results af_results;                                            /*!< Optional. */
     bool bAssitLightOn;                                                      /*!< True if the af assist light is on, false otherwise .*/
+    bool zoom_on;                                                           /*!< True if the camera is zooming, false otherwise .*/
 #ifdef IA_CCAT_FACE_ANALYSIS_ENABLED
     ia_face_roi faces[IA_CCAT_FACES_MAX_NUM];                                /*!< Optional. Face coordinates from external face detector. NULL if not available. */
     bool updated;                                                            /*!< The update status of face. true is the real statistics, and false is the false statistics that have not been updated.*/
@@ -261,7 +262,7 @@ typedef enum
     ccat_project_adaption_bitmap_8 = 1 << 8,   /*!< is to skip the logic that sets stable face signal when MSFT is updated. */
     ccat_project_adaption_bitmap_9 = 1 << 9,   /*!< TBD */
     ccat_project_adaption_bitmap_10 = 1 << 10,   /*!< TBD */
-    ccat_project_adaption_bitmap_11 = 1 << 11,   /*!< TBD */
+    ccat_project_adaption_bitmap_11 = 1 << 11,   /*!< is world facing camera */
     ccat_project_adaption_bitmap_12 = 1 << 12,   /*!< TBD */
     ccat_project_adaption_bitmap_13 = 1 << 13,   /*!< TBD */
     ccat_project_adaption_bitmap_14 = 1 << 14,   /*!< TBD */
